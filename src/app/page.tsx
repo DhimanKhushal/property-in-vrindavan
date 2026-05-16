@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { propertyInVrindavan } from "@/content/sites";
+import { LeadForm } from "@/components/lead-form";
 
 const site = propertyInVrindavan;
 
@@ -428,63 +429,11 @@ export default function Home() {
                 Share your details and our team will get in touch with curated options, pricing, and visit support.
               </p>
 
-              <form className="mt-8 grid gap-5 sm:grid-cols-2">
-                <label className="flex flex-col gap-2 sm:col-span-1">
-                  <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
-                    Name
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Your full name"
-                    className="h-14 rounded-[1rem] border border-[#ddc9ab] bg-white px-4 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]"
-                  />
-                </label>
-
-                <label className="flex flex-col gap-2 sm:col-span-1">
-                  <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
-                    Contact Number
-                  </span>
-                  <input
-                    type="tel"
-                    placeholder="+91 98XXXXXX"
-                    className="h-14 rounded-[1rem] border border-[#ddc9ab] bg-white px-4 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]"
-                  />
-                </label>
-
-                <label className="flex flex-col gap-2 sm:col-span-1">
-                  <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
-                    Looking For Property
-                  </span>
-                  <select className="h-14 rounded-[1rem] border border-[#ddc9ab] bg-white px-4 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]">
-                    <option value="">Select property type</option>
-                    {site.propertyOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="flex flex-col gap-2 sm:col-span-1">
-                  <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
-                    Where From
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="City / State"
-                    className="h-14 rounded-[1rem] border border-[#ddc9ab] bg-white px-4 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]"
-                  />
-                </label>
-
-                <div className="sm:col-span-2">
-                  <button
-                    type="submit"
-                    className="button-gold inline-flex h-14 min-w-[220px] items-center justify-center rounded-[1rem] border border-[#8f6116] px-8 font-display text-[1rem] uppercase tracking-[0.08em] text-[#fff5d8]"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
+              <LeadForm
+                endpoint={site.leadFormEndpoint}
+                propertyOptions={site.propertyOptions}
+                siteDomain={site.domain}
+              />
             </div>
 
             <aside className="rounded-[2rem] border border-[#c39a59] bg-[linear-gradient(160deg,#6f4721_0%,#3f2a18_46%,#251915_100%)] p-6 text-white shadow-[0_24px_60px_rgba(38,20,7,0.28)] sm:p-8 lg:p-10">

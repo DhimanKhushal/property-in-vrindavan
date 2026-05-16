@@ -9,6 +9,7 @@ export type SiteCategory = {
 export type SiteConfig = {
   domain: string;
   brandName: string;
+  leadFormEndpoint: string;
   headlineTop: string;
   headlineBottom: string;
   subheadline: string;
@@ -28,6 +29,7 @@ export type SiteConfig = {
 export const propertyInVrindavan: SiteConfig = {
   domain: "propertyinvrindavan.co.in",
   brandName: "Property In Vrindavan",
+  leadFormEndpoint: "",
   headlineTop: "Find Your Divine Home",
   headlineBottom: "In Vrindavan",
   subheadline:
