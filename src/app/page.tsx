@@ -79,6 +79,34 @@ const propertySections = [
   },
 ];
 
+function getPropertySectionId(categoryId: string) {
+  switch (categoryId) {
+    case "plots":
+      return "residential-plots";
+    case "apartments":
+      return "flats-apartments";
+    case "villas":
+      return "villas-houses";
+    case "farmhouses":
+      return "farmhouses-resorts";
+    case "commercial":
+      return "commercial-showrooms-shops";
+    default:
+      return "properties";
+  }
+}
+
+const navLinks = [
+  { href: "#home", label: "Home" },
+  { href: "#about", label: "About Us" },
+  { href: "#properties", label: "Properties" },
+  ...site.categories.map((category) => ({
+    href: `#${getPropertySectionId(category.id)}`,
+    label: splitCardTitle(category.title).label,
+  })),
+  { href: "#contact", label: "Contact" },
+];
+
 function splitCardTitle(title: string) {
   const parts = title.split(". ");
   if (parts.length > 1) {
@@ -152,43 +180,67 @@ export default function Home() {
     <main className="min-h-screen bg-[#f7f1e8]">
       <section className="bg-[#f6efe4]">
         <div className="fixed inset-x-0 top-0 z-50 px-4 pt-5 sm:px-6 lg:px-8">
-          <header className="mx-auto flex max-w-[1600px] flex-col gap-4 rounded-[1.8rem] border border-[#ead9bc]/95 bg-[#fbf5ea]/95 px-5 py-4 shadow-[0_14px_36px_rgba(86,57,18,0.08)] backdrop-blur-md lg:flex-row lg:items-center lg:justify-between">
+          <header className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 rounded-[1.8rem] border border-[#ead9bc]/95 bg-[#fbf5ea]/95 px-4 py-4 shadow-[0_14px_36px_rgba(86,57,18,0.08)] backdrop-blur-md sm:px-5">
             <div className="flex items-center gap-3">
               <Image
                 src="/shared/logo-transparent.png"
                 alt={`${site.brandName} logo`}
                 width={88}
                 height={88}
-                className="h-16 w-16 object-contain sm:h-18 sm:w-18"
+                className="h-14 w-14 object-contain sm:h-16 sm:w-16"
               />
               <div className="leading-none">
-                <p className="font-heading text-[1.15rem] tracking-[0.08em] text-[#b28a35] sm:text-[1.35rem]">
+                <p className="font-heading text-[1rem] tracking-[0.08em] text-[#b28a35] sm:text-[1.2rem]">
                   Property In
                 </p>
-                <p className="font-heading text-[1.05rem] tracking-[0.08em] text-[#8f6f2b] sm:text-[1.28rem]">
+                <p className="font-heading text-[0.95rem] tracking-[0.08em] text-[#8f6f2b] sm:text-[1.15rem]">
                   Vrindavan
                 </p>
               </div>
             </div>
 
-            <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 font-body text-[1.05rem] text-[#3a2b1f] sm:text-[1.15rem]">
-              <a href="#home" className="transition hover:text-[#b9851d]">
-                Home
-              </a>
-              <a href="#about" className="transition hover:text-[#b9851d]">
-                About Us
-              </a>
-              <a href="#properties" className="transition hover:text-[#b9851d]">
-                Properties
-              </a>
+            <nav className="hidden xl:flex xl:max-w-[58rem] xl:flex-wrap xl:items-center xl:justify-center xl:gap-x-5 xl:gap-y-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="font-body text-[0.98rem] text-[#3a2b1f] transition hover:text-[#b9851d]"
+                >
+                  {link.label}
+                </a>
+              ))}
             </nav>
 
-            <a
-              href="#contact"
-              className="rounded-[0.8rem] bg-[linear-gradient(180deg,#efcf7c_0%,#d7a94f_100%)] px-5 py-2 text-center font-body text-[1.02rem] text-[#402c17] shadow-[0_10px_18px_rgba(156,112,24,0.22)] transition hover:-translate-y-0.5 hover:brightness-[1.03] sm:text-[1.08rem]"
-            >
-              Contact Us
-            </a>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <details className="group relative xl:hidden">
+                <summary className="flex h-11 cursor-pointer list-none items-center justify-center rounded-[0.85rem] border border-[#dec8a5] bg-white/88 px-4 font-display text-[0.88rem] uppercase tracking-[0.12em] text-[#5d452f] shadow-[0_8px_18px_rgba(86,57,18,0.08)] transition marker:content-none hover:border-[#cda96b] sm:text-[0.92rem]">
+                  Menu
+                </summary>
+                <div className="absolute right-0 top-full z-20 mt-3 w-[min(88vw,23rem)] rounded-[1.4rem] border border-[#e4d3b7] bg-[#fffaf2]/98 p-4 shadow-[0_20px_45px_rgba(55,35,13,0.18)] backdrop-blur-sm">
+                  <p className="font-display text-[0.8rem] uppercase tracking-[0.18em] text-[#a57924]">
+                    Navigate
+                  </p>
+                  <div className="mt-3 grid gap-2">
+                    {navLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="rounded-[0.95rem] border border-[#ecdfca] bg-white px-4 py-3 font-body text-[0.98rem] text-[#3e2c1d] transition hover:border-[#d6b06d] hover:text-[#b9851d]"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </details>
+
+              <a
+                href="#contact"
+                className="rounded-[0.8rem] bg-[linear-gradient(180deg,#efcf7c_0%,#d7a94f_100%)] px-4 py-2 text-center font-body text-[0.94rem] text-[#402c17] shadow-[0_10px_18px_rgba(156,112,24,0.22)] transition hover:-translate-y-0.5 hover:brightness-[1.03] sm:px-5 sm:text-[1.02rem]"
+              >
+                Contact Us
+              </a>
+            </div>
           </header>
         </div>
 
@@ -235,16 +287,7 @@ export default function Home() {
                 <div className="mx-auto mt-8 grid max-w-[1220px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                   {site.categories.map((category) => {
                     const { index, label } = splitCardTitle(category.title);
-                    const sectionId =
-                      category.id === "plots"
-                        ? "residential-plots"
-                        : category.id === "apartments"
-                          ? "flats-apartments"
-                          : category.id === "villa"
-                            ? "villas-houses"
-                            : category.id === "farmhouse"
-                              ? "farmhouses-resorts"
-                              : "commercial-showrooms-shops";
+                    const sectionId = getPropertySectionId(category.id);
 
                     return (
                       <a
