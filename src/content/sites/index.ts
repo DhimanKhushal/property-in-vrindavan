@@ -1,0 +1,1 @@
+export { propertyInVrindavan } from "./propertyinvrindavan";
