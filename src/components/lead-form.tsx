@@ -46,13 +46,13 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
         method="post"
         target="lead_capture_iframe"
         onSubmit={handleSubmit}
-        className="mt-8 grid gap-5 sm:grid-cols-2"
+        className="mt-8 grid gap-5 md:grid-cols-2"
       >
         <input type="hidden" name="site" value={siteDomain} />
         <input type="hidden" name="pageUrl" value={pageUrl} />
         <input type="hidden" name="userAgent" value={userAgent} />
 
-        <label className="flex flex-col gap-2 sm:col-span-1">
+        <label className="flex flex-col gap-2 text-left">
           <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
             Name
           </span>
@@ -65,7 +65,7 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
           />
         </label>
 
-        <label className="flex flex-col gap-2 sm:col-span-1">
+        <label className="flex flex-col gap-2 text-left">
           <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
             Contact Number
           </span>
@@ -78,7 +78,7 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
           />
         </label>
 
-        <label className="flex flex-col gap-2 sm:col-span-1">
+        <label className="flex flex-col gap-2 text-left">
           <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
             Looking For Property
           </span>
@@ -112,7 +112,7 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
           </div>
         </label>
 
-        <label className="flex flex-col gap-2 sm:col-span-1">
+        <label className="flex flex-col gap-2 text-left">
           <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
             Where From
           </span>
@@ -125,7 +125,20 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
           />
         </label>
 
-        <div className="sm:col-span-2">
+        <label className="flex flex-col gap-2 text-left md:col-span-2">
+          <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
+            Budget
+          </span>
+          <input
+            name="budget"
+            type="text"
+            placeholder="Your budget range"
+            required
+            className="h-14 rounded-[1rem] border border-[#ddc9ab] bg-white px-4 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]"
+          />
+        </label>
+
+        <div className="md:col-span-2">
           <button
             type="submit"
             className="button-gold inline-flex h-14 min-w-[220px] items-center justify-center rounded-[1rem] border border-[#8f6116] px-8 font-display text-[1rem] uppercase tracking-[0.08em] text-[#fff5d8] disabled:cursor-not-allowed disabled:opacity-70"
@@ -135,7 +148,7 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
           </button>
         </div>
 
-        <div className="sm:col-span-2">
+        <div className="md:col-span-2">
           {submissionState === "success" ? (
             <p className="rounded-[1rem] border border-[#d8c2a1] bg-[#fff7ea] px-4 py-3 text-[0.98rem] text-[#5f4831]">
               Thank you. Your enquiry has been submitted and our team will reach out soon.

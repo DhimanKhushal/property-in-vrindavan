@@ -202,17 +202,17 @@ export default function Home() {
             </div>
 
             <div className="space-y-7 pt-3 text-center lg:text-left">
-              <p className="text-[1.18rem] leading-9 text-[#4c3a2d] sm:text-[1.28rem]">
+              <p className="text-justify text-[1.18rem] leading-9 text-[#4c3a2d] sm:text-[1.28rem] lg:text-left">
                 With a legacy of 10 years in the real estate industry, our journey over the last decade has
                 been defined by a deep commitment to excellence and a passion for helping our clients find
                 their perfect space, whether it&apos;s a divine home or a strategic investment.
               </p>
-              <p className="text-[1.12rem] leading-8 text-[#5d4a3c] sm:text-[1.2rem]">
+              <p className="text-justify text-[1.12rem] leading-8 text-[#5d4a3c] sm:text-[1.2rem] lg:text-left">
                 Having collaborated with a diverse range of reputed builders, we bring a wealth of expertise
                 and a proven track record to every project we undertake.
               </p>
               <div className="space-y-2 text-[1.08rem] leading-8 text-[#5d4a3c]">
-                <p>Our portfolio is as diverse as the needs of our clients, spanning across various sectors including:</p>
+                <p className="text-justify lg:text-left">Our portfolio is as diverse as the needs of our clients, spanning across various sectors including:</p>
                 <ul className="list-disc pl-6 text-left lg:pl-6">
                   <li>Residential Plots & Apartments</li>
                   <li>Villas & Independent Houses</li>
@@ -248,7 +248,7 @@ export default function Home() {
                 <SectionWordmark top="Our" bottom="Vision" />
               </div>
               <div className="rounded-[1.6rem] bg-white/60 px-5 py-5 text-center shadow-[inset_0_0_0_1px_rgba(226,212,192,0.7)] sm:px-7 sm:py-7 lg:text-left">
-                <p className="text-[1.08rem] leading-8 text-[#4e3c30] sm:text-[1.18rem]">
+                <p className="text-justify text-[1.08rem] leading-8 text-[#4e3c30] sm:text-[1.18rem] lg:text-left">
                   To be the most trusted and preferred real estate partners. Drawing on our 10-year legacy of
                   excellence and deep-rooted local expertise, we envision a future where every seeker finds
                   their &quot;Divine Abode&quot; through our transparent, professional, and heritage-connected services.
@@ -298,7 +298,7 @@ export default function Home() {
                       </h3>
                       <div className="mt-4 space-y-5 text-[1.06rem] leading-8 text-[#554234] sm:text-[1.12rem]">
                         {section.copy.map((paragraph) => (
-                          <p key={paragraph}>{paragraph}</p>
+                          <p key={paragraph} className="text-justify lg:text-left">{paragraph}</p>
                         ))}
                       </div>
                     </div>
@@ -320,7 +320,7 @@ export default function Home() {
               <h3 className="mt-3 font-heading text-[2rem] leading-tight text-[#3d2818] sm:text-[2.5rem]">
                 Tell us what property you are looking for
               </h3>
-              <p className="mt-4 max-w-[44rem] text-[1.08rem] leading-8 text-[#6e5540]">
+              <p className="mt-4 max-w-[44rem] text-justify text-[1.08rem] leading-8 text-[#6e5540] lg:text-left">
                 Share your details and our team will get in touch with curated options, pricing, and visit support.
               </p>
 
@@ -338,10 +338,10 @@ export default function Home() {
               <h3 className="mt-3 font-heading text-[2rem] leading-tight text-[#fff4dc] sm:text-[2.4rem]">
                 {site.ctaTitle}
               </h3>
-              <p className="mt-5 text-[1.08rem] leading-8 text-white/80">{site.ctaBody}</p>
+              <p className="mt-5 text-justify text-[1.08rem] leading-8 text-white/80 lg:text-left">{site.ctaBody}</p>
 
               <div className="mt-8 space-y-4">
-                <div className="rounded-[1.2rem] border border-white/14 bg-white/8 px-5 py-4">
+                <div className="rounded-[1.2rem] border border-white/14 bg-white/8 px-5 py-4 text-left">
                   <p className="font-display text-[0.88rem] uppercase tracking-[0.14em] text-[#efc56a]">
                     Call Us
                   </p>
@@ -349,7 +349,7 @@ export default function Home() {
                     {site.contactPhone}
                   </a>
                 </div>
-                <div className="rounded-[1.2rem] border border-white/14 bg-white/8 px-5 py-4">
+                <div className="rounded-[1.2rem] border border-white/14 bg-white/8 px-5 py-4 text-left">
                   <p className="font-display text-[0.88rem] uppercase tracking-[0.14em] text-[#efc56a]">
                     Email Us
                   </p>
@@ -387,8 +387,9 @@ export default function Home() {
       <FloatingContactButton
         heroId="home"
         hideAtId="contact"
-        href="#contact"
-        label="Contact Us"
+        contactHref="#contact"
+        whatsappHref="https://wa.me/919592535453"
+        contactLabel="Contact Us"
       />
     </main>
   );
