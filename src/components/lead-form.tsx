@@ -82,21 +82,34 @@ export function LeadForm({ endpoint, propertyOptions, siteDomain }: LeadFormProp
           <span className="font-display text-[0.92rem] uppercase tracking-[0.1em] text-[#5a4331]">
             Looking For Property
           </span>
-          <select
-            name="propertyType"
-            required
-            defaultValue=""
-            className="h-14 rounded-[1rem] border border-[#ddc9ab] bg-white px-4 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]"
-          >
-            <option value="" disabled>
-              Select property type
-            </option>
-            {propertyOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
+          <div className="relative">
+            <select
+              name="propertyType"
+              required
+              defaultValue=""
+              className="h-14 w-full appearance-none rounded-[1rem] border border-[#ddc9ab] bg-white pl-4 pr-14 text-[1rem] text-[#2d241c] outline-none transition focus:border-[#b9851d]"
+            >
+              <option value="" disabled>
+                Select property type
               </option>
-            ))}
-          </select>
+              {propertyOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-[#7b684f]">
+              <svg viewBox="0 0 20 20" fill="none" className="h-[1.1rem] w-[1.1rem]" aria-hidden="true">
+                <path
+                  d="m5 7.5 5 5 5-5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
         </label>
 
         <label className="flex flex-col gap-2 sm:col-span-1">
