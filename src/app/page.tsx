@@ -4,6 +4,7 @@ import { propertyInVrindavan } from "@/content/sites";
 import { LeadForm } from "@/components/lead-form";
 import { HeroCardsCarousel } from "@/components/hero-cards-carousel";
 import { SiteNavbar } from "@/components/site-navbar";
+import { FloatingContactButton } from "@/components/floating-contact-button";
 
 const site = propertyInVrindavan;
 
@@ -116,8 +117,15 @@ function splitCardTitle(title: string) {
 function SectionWordmark({ top, bottom }: { top: string; bottom?: string }) {
   return (
     <div className="font-heading uppercase leading-[0.82] tracking-[0.03em] text-[#caa44f]">
-      <div className="text-[3.15rem] sm:text-[4.2rem] lg:text-[5.4rem]">{top}</div>
-      {bottom ? <div className="text-[3.15rem] sm:text-[4.2rem] lg:text-[5.4rem]">{bottom}</div> : null}
+      {bottom ? (
+        <>
+          <div className="text-[2.7rem] sm:hidden">{`${top} ${bottom}`}</div>
+          <div className="hidden text-[4.2rem] sm:block lg:text-[5.4rem]">{top}</div>
+          <div className="hidden text-[4.2rem] sm:block lg:text-[5.4rem]">{bottom}</div>
+        </>
+      ) : (
+        <div className="text-[2.7rem] sm:text-[4.2rem] lg:text-[5.4rem]">{top}</div>
+      )}
     </div>
   );
 }
@@ -189,11 +197,11 @@ export default function Home() {
       >
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-10 rounded-[2.2rem] border border-[#eadcc7] bg-[linear-gradient(180deg,rgba(255,251,245,0.92)_0%,rgba(250,243,232,0.92)_100%)] px-6 py-8 shadow-[0_20px_44px_rgba(88,60,22,0.07)] lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-10 lg:py-10">
-            <div>
+            <div className="flex justify-center lg:justify-start">
               <SectionWordmark top="About" bottom="Us" />
             </div>
 
-            <div className="space-y-7 pt-3">
+            <div className="space-y-7 pt-3 text-center lg:text-left">
               <p className="text-[1.18rem] leading-9 text-[#4c3a2d] sm:text-[1.28rem]">
                 With a legacy of 10 years in the real estate industry, our journey over the last decade has
                 been defined by a deep commitment to excellence and a passion for helping our clients find
@@ -205,7 +213,7 @@ export default function Home() {
               </p>
               <div className="space-y-2 text-[1.08rem] leading-8 text-[#5d4a3c]">
                 <p>Our portfolio is as diverse as the needs of our clients, spanning across various sectors including:</p>
-                <ul className="list-disc pl-6">
+                <ul className="list-disc pl-6 text-left lg:pl-6">
                   <li>Residential Plots & Apartments</li>
                   <li>Villas & Independent Houses</li>
                   <li>Commercial Spaces</li>
@@ -236,10 +244,10 @@ export default function Home() {
 
           <div className="mt-16 rounded-[2.3rem] border border-[#e2d4c0] bg-[linear-gradient(180deg,#f5ecde_0%,#fbf6ee_100%)] px-6 py-10 shadow-[0_18px_38px_rgba(88,60,22,0.06)] lg:px-10 lg:py-12">
             <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-              <div className="lg:border-r lg:border-[#e3d3bb] lg:pr-8">
+              <div className="flex justify-center lg:block lg:border-r lg:border-[#e3d3bb] lg:pr-8">
                 <SectionWordmark top="Our" bottom="Vision" />
               </div>
-              <div className="rounded-[1.6rem] bg-white/60 px-5 py-5 shadow-[inset_0_0_0_1px_rgba(226,212,192,0.7)] sm:px-7 sm:py-7">
+              <div className="rounded-[1.6rem] bg-white/60 px-5 py-5 text-center shadow-[inset_0_0_0_1px_rgba(226,212,192,0.7)] sm:px-7 sm:py-7 lg:text-left">
                 <p className="text-[1.08rem] leading-8 text-[#4e3c30] sm:text-[1.18rem]">
                   To be the most trusted and preferred real estate partners. Drawing on our 10-year legacy of
                   excellence and deep-rooted local expertise, we envision a future where every seeker finds
@@ -259,30 +267,32 @@ export default function Home() {
       >
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <SectionWordmark top="Properties" />
+            <div className="flex justify-center lg:justify-start">
+              <SectionWordmark top="Properties" />
+            </div>
             <div />
           </div>
 
           <div className="mt-10 space-y-8">
-            {propertySections.map((section) => {
-              const isRight = section.imageSide === "right";
+            {propertySections.map((section, index) => {
+              const isRight = index % 2 === 1;
               const cardBg =
-                section.tone === "cream"
-                  ? "bg-[linear-gradient(180deg,#fcf3df_0%,#f8ecd4_100%)]"
-                  : "bg-white";
+                index % 2 === 1
+                  ? "bg-[linear-gradient(180deg,#fcf6eb_0%,#f4e5ca_100%)]"
+                  : "bg-[linear-gradient(180deg,#fffdf8_0%,#f8efe1_100%)]";
 
               return (
                 <article
                   key={section.title}
                   id={section.id}
-                  className={`rounded-[2rem] border border-[#e8dcc7] ${cardBg} p-5 shadow-[0_14px_28px_rgba(73,49,20,0.12)] sm:p-7`}
+                  className={`rounded-[2rem] border border-[#e4d5be] ${cardBg} p-5 shadow-[0_16px_32px_rgba(73,49,20,0.09)] sm:p-7`}
                 >
                   <div className={`grid gap-7 lg:grid-cols-[0.85fr_1.15fr] ${isRight ? "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1" : ""}`}>
                     <div className="relative min-h-[240px] overflow-hidden rounded-[1rem]">
                       <Image src={section.image} alt={section.imageAlt} fill className="object-cover" />
                     </div>
 
-                    <div className="flex flex-col justify-center">
+                    <div className="flex flex-col justify-center text-center lg:text-left">
                       <h3 className="font-display text-[2rem] leading-tight text-[#3d2b1f] sm:text-[2.4rem]">
                         {section.title}
                       </h3>
@@ -303,7 +313,7 @@ export default function Home() {
       <section id="contact" className="bg-[#f2ece2] px-4 py-14 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[1260px]">
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="rounded-[2rem] border border-[#d8c2a1] bg-[linear-gradient(180deg,#fffaf2_0%,#f4ead7_100%)] p-6 shadow-[0_24px_60px_rgba(86,57,18,0.12)] sm:p-8 lg:p-10">
+            <div className="rounded-[2rem] border border-[#d8c2a1] bg-[linear-gradient(180deg,#fffaf2_0%,#f4ead7_100%)] p-6 text-center shadow-[0_24px_60px_rgba(86,57,18,0.12)] sm:p-8 lg:p-10 lg:text-left">
               <p className="font-display text-[0.95rem] uppercase tracking-[0.18em] text-[#9e7420]">
                 Enquiry Form
               </p>
@@ -321,7 +331,7 @@ export default function Home() {
               />
             </div>
 
-            <aside className="rounded-[2rem] border border-[#c39a59] bg-[linear-gradient(160deg,#6f4721_0%,#3f2a18_46%,#251915_100%)] p-6 text-white shadow-[0_24px_60px_rgba(38,20,7,0.28)] sm:p-8 lg:p-10">
+            <aside className="rounded-[2rem] border border-[#c39a59] bg-[linear-gradient(160deg,#6b4320_0%,#3c2818_46%,#241916_100%)] p-6 text-center text-white shadow-[0_24px_60px_rgba(38,20,7,0.22)] sm:p-8 lg:p-10 lg:text-left">
               <p className="font-display text-[0.95rem] uppercase tracking-[0.18em] text-[#f4d48d]">
                 Contact For More Info
               </p>
@@ -360,7 +370,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-10 text-center sm:px-6 lg:px-8">
+      <section id="footer-callout" className="bg-white px-4 py-10 text-center sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[1400px]">
           <p className="font-heading text-[2.6rem] uppercase tracking-[0.03em] text-[#caa44f] sm:text-[4rem] lg:text-[5.6rem]">
             Call Us For Any Inquiry
@@ -374,15 +384,12 @@ export default function Home() {
         </div>
       </section>
 
-      <a
+      <FloatingContactButton
+        heroId="home"
+        hideAtId="contact"
         href="#contact"
-        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-3 rounded-full border border-[#8f6116] bg-[linear-gradient(180deg,#d5ab48_0%,#b9851d_46%,#8f6215_100%)] px-5 py-3 font-display text-[0.98rem] uppercase tracking-[0.06em] text-[#fff5d8] shadow-[inset_0_1px_0_rgba(255,244,214,0.7),0_14px_28px_rgba(50,28,7,0.28)] transition hover:-translate-y-1 hover:brightness-[1.03]"
-      >
-        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/18 text-[1.1rem]">
-          ✆
-        </span>
-        Contact Us
-      </a>
+        label="Contact Us"
+      />
     </main>
   );
 }
