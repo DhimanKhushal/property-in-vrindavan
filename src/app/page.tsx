@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { propertyInVrindavan } from "@/content/sites";
 import { LeadForm } from "@/components/lead-form";
+import { HeroCardsCarousel } from "@/components/hero-cards-carousel";
 
 const site = propertyInVrindavan;
 
@@ -98,12 +99,8 @@ function getPropertySectionId(categoryId: string) {
 
 const navLinks = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "About Us" },
-  { href: "#properties", label: "Properties" },
-  ...site.categories.map((category) => ({
-    href: `#${getPropertySectionId(category.id)}`,
-    label: splitCardTitle(category.title).label,
-  })),
+  { href: "#about", label: "About" },
+  { href: "#properties", label: "Explore" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -116,56 +113,6 @@ function splitCardTitle(title: string) {
   return { index: "", label: title };
 }
 
-function HeroCardIcon({ icon }: { icon: (typeof site.categories)[number]["icon"] }) {
-  const classes = "h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem]";
-
-  switch (icon) {
-    case "plots":
-      return (
-        <svg viewBox="0 0 96 96" fill="none" className={classes} aria-hidden="true">
-          <path d="M18 63 48 27l30 36-30 15-30-15Z" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
-          <path d="M48 27v35m-15-13 15 8 16-8M25 68l8-4m38 4-8-4" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M18 76h60" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-        </svg>
-      );
-    case "apartments":
-      return (
-        <svg viewBox="0 0 96 96" fill="none" className={classes} aria-hidden="true">
-          <path d="M26 22h20v54H26zM50 30h20v46H50z" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
-          <path d="M33 31h6m-6 9h6m-6 9h6m-6 9h6m24-18h6m-6 9h6m-6 9h6M39 76V62h10v14" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-          <path d="M20 76h56" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-        </svg>
-      );
-    case "villa":
-      return (
-        <svg viewBox="0 0 96 96" fill="none" className={classes} aria-hidden="true">
-          <path d="M16 47 48 24l32 23v27H16V47Z" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
-          <path d="M30 74V56h14v18M52 42h11M52 53h11M22 74h52" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-          <path d="M24 38 48 21l24 17M40 35h6" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" />
-          <path d="M60 74V58h12v16" stroke="currentColor" strokeWidth="3.2" />
-        </svg>
-      );
-    case "farmhouse":
-      return (
-        <svg viewBox="0 0 96 96" fill="none" className={classes} aria-hidden="true">
-          <path d="M24 47 48 30l24 17v23H24V47Z" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
-          <path d="M36 70V54h24v16M18 70h60" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-          <path d="M24 45c-2-9-2-16 1-21m0 0c4 1 7 5 9 11m34 10c2-9 2-16-1-21m0 0c-4 1-7 5-9 11M48 22v8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.82" />
-        </svg>
-      );
-    case "commercial":
-      return (
-        <svg viewBox="0 0 96 96" fill="none" className={classes} aria-hidden="true">
-          <path d="M18 76h60M24 76V38h18v38M48 76V24h24v52" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
-          <path d="M30 46h5m-5 9h5m-5 9h5m25-21h7m-7 9h7m-7 9h7m-7 9h7" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-          <path d="M33 76V62h7v14M56 76V62h8v14" stroke="currentColor" strokeWidth="3.2" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
-
 function SectionWordmark({ top, bottom }: { top: string; bottom?: string }) {
   return (
     <div className="font-heading uppercase leading-[0.82] tracking-[0.03em] text-[#caa44f]">
@@ -176,6 +123,26 @@ function SectionWordmark({ top, bottom }: { top: string; bottom?: string }) {
 }
 
 export default function Home() {
+  const propertyTypeLinks = site.categories.map((category) => ({
+    href: `#${getPropertySectionId(category.id)}`,
+    label:
+      category.id === "plots"
+        ? "Plots"
+        : category.id === "apartments"
+          ? "Flats"
+          : category.id === "villas"
+            ? "Villas"
+            : category.id === "farmhouses"
+              ? "Farmhouses"
+              : "Commercial",
+  }));
+
+  const heroCardItems = site.categories.map((category) => ({
+    category,
+    sectionId: getPropertySectionId(category.id),
+    ...splitCardTitle(category.title),
+  }));
+
   return (
     <main className="min-h-screen bg-[#f7f1e8]">
       <section className="bg-[#f6efe4]">
@@ -199,7 +166,7 @@ export default function Home() {
               </div>
             </div>
 
-            <nav className="hidden xl:flex xl:max-w-[58rem] xl:flex-wrap xl:items-center xl:justify-center xl:gap-x-5 xl:gap-y-2">
+            <nav className="hidden lg:flex lg:max-w-[42rem] lg:flex-wrap lg:items-center lg:justify-center lg:gap-x-5 lg:gap-y-2">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -209,12 +176,33 @@ export default function Home() {
                   {link.label}
                 </a>
               ))}
+
+              <details className="group relative">
+                <summary className="cursor-pointer list-none font-body text-[0.98rem] text-[#3a2b1f] transition hover:text-[#b9851d] marker:content-none">
+                  Types
+                </summary>
+                <div className="absolute left-1/2 top-full z-20 mt-4 w-64 -translate-x-1/2 rounded-[1.35rem] border border-[#e4d3b7] bg-[#fffaf2]/98 p-3 shadow-[0_20px_45px_rgba(55,35,13,0.18)] backdrop-blur-sm">
+                  <div className="grid gap-2">
+                    {propertyTypeLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="rounded-[0.9rem] border border-[#ecdfca] bg-white px-4 py-3 font-body text-[0.96rem] text-[#3e2c1d] transition hover:border-[#d6b06d] hover:text-[#b9851d]"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </details>
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <details className="group relative xl:hidden">
-                <summary className="flex h-11 cursor-pointer list-none items-center justify-center rounded-[0.85rem] border border-[#dec8a5] bg-white/88 px-4 font-display text-[0.88rem] uppercase tracking-[0.12em] text-[#5d452f] shadow-[0_8px_18px_rgba(86,57,18,0.08)] transition marker:content-none hover:border-[#cda96b] sm:text-[0.92rem]">
-                  Menu
+              <details className="group relative lg:hidden">
+                <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-[0.85rem] border border-[#dec8a5] bg-white/88 text-[#5d452f] shadow-[0_8px_18px_rgba(86,57,18,0.08)] transition marker:content-none hover:border-[#cda96b]">
+                  <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+                    <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
                 </summary>
                 <div className="absolute right-0 top-full z-20 mt-3 w-[min(88vw,23rem)] rounded-[1.4rem] border border-[#e4d3b7] bg-[#fffaf2]/98 p-4 shadow-[0_20px_45px_rgba(55,35,13,0.18)] backdrop-blur-sm">
                   <p className="font-display text-[0.8rem] uppercase tracking-[0.18em] text-[#a57924]">
@@ -226,10 +214,26 @@ export default function Home() {
                         key={link.href}
                         href={link.href}
                         className="rounded-[0.95rem] border border-[#ecdfca] bg-white px-4 py-3 font-body text-[0.98rem] text-[#3e2c1d] transition hover:border-[#d6b06d] hover:text-[#b9851d]"
-                      >
-                        {link.label}
-                      </a>
+                        >
+                          {link.label}
+                        </a>
                     ))}
+                  </div>
+                  <div className="mt-4 border-t border-[#ead9bc] pt-4">
+                    <p className="font-display text-[0.75rem] uppercase tracking-[0.18em] text-[#a57924]">
+                      Property Types
+                    </p>
+                    <div className="mt-3 grid grid-cols-2 gap-2">
+                      {propertyTypeLinks.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          className="rounded-[0.9rem] border border-[#ecdfca] bg-white px-3 py-3 text-center font-body text-[0.92rem] text-[#3e2c1d] transition hover:border-[#d6b06d] hover:text-[#b9851d]"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </details>
@@ -284,57 +288,7 @@ export default function Home() {
                   </form>
                 </div>
 
-                <div className="mx-auto mt-8 grid max-w-[1220px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-                  {site.categories.map((category) => {
-                    const { index, label } = splitCardTitle(category.title);
-                    const sectionId = getPropertySectionId(category.id);
-
-                    return (
-                      <a
-                        key={category.id}
-                        href={`#${sectionId}`}
-                        className="flex min-h-[240px] flex-col rounded-[1.65rem] border bg-[rgba(255,251,244,0.96)] px-5 pb-5 pt-4 text-center shadow-[0_18px_36px_rgba(30,18,8,0.18)] backdrop-blur-[2px]"
-                        style={{ borderColor: `${category.accent}99` }}
-                      >
-                        <div
-                          className="h-1.5 w-full rounded-full"
-                          style={{ background: `linear-gradient(90deg, ${category.accent}, transparent)` }}
-                        />
-                        <div className="mt-4 flex items-start justify-between gap-3">
-                          <span
-                            className="inline-flex h-9 min-w-9 items-center justify-center rounded-full border px-3 font-display text-[0.88rem] uppercase tracking-[0.08em]"
-                            style={{
-                              borderColor: `${category.accent}66`,
-                              color: category.accent,
-                              backgroundColor: `${category.accent}12`,
-                            }}
-                          >
-                            {index}
-                          </span>
-                          <div
-                            className="flex h-18 w-18 items-center justify-center rounded-[1.25rem] border"
-                            style={{
-                              borderColor: `${category.accent}4d`,
-                              color: category.accent,
-                              backgroundColor: `${category.accent}10`,
-                            }}
-                          >
-                            <HeroCardIcon icon={category.icon} />
-                          </div>
-                        </div>
-                        <h3 className="mt-5 min-h-[62px] font-display text-[1.12rem] uppercase leading-[1.08] tracking-[0.015em] text-[#231915]">
-                          {label}
-                        </h3>
-                        <span
-                          className="mt-auto inline-flex h-11 w-full items-center justify-center rounded-[0.95rem] border bg-white/92 px-4 font-display text-[0.92rem] uppercase tracking-[0.05em] text-[#241b16] transition hover:bg-white"
-                          style={{ borderColor: `${category.accent}80` }}
-                        >
-                          {category.cta}
-                        </span>
-                      </a>
-                    );
-                  })}
-                </div>
+                <HeroCardsCarousel items={heroCardItems} />
               </div>
             </div>
           </div>
