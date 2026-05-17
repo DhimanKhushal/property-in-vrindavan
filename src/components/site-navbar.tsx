@@ -12,6 +12,8 @@ type SiteNavbarProps = {
   brandName: string;
   brandTopLine: string;
   brandBottomLine: string;
+  ctaHref: string;
+  ctaLabel: string;
   navLinks: NavLink[];
   propertyLinks: NavLink[];
 };
@@ -20,6 +22,8 @@ export function SiteNavbar({
   brandName,
   brandTopLine,
   brandBottomLine,
+  ctaHref,
+  ctaLabel,
   navLinks,
   propertyLinks,
 }: SiteNavbarProps) {
@@ -179,10 +183,10 @@ export function SiteNavbar({
         ) : null}
 
         <a
-          href="#contact"
+          href={ctaHref}
           className="hidden rounded-[0.8rem] bg-[linear-gradient(180deg,#efcf7c_0%,#d7a94f_100%)] px-4 py-2 text-center font-body text-[0.94rem] text-[#402c17] shadow-[0_10px_18px_rgba(156,112,24,0.22)] transition hover:-translate-y-0.5 hover:brightness-[1.03] sm:px-5 sm:text-[1.02rem] lg:inline-flex"
         >
-          Contact Us
+          {ctaLabel}
         </a>
       </div>
     </header>

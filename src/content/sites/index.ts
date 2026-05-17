@@ -4,9 +4,11 @@ export {
   getSiteConfigByDomain,
   getSiteConfigByPreviewKey,
   heroHomesVrindavan,
-  laadiGroupVrindavan,
+  laadliGroupVrindavan,
   lodhaVrindavan,
+  mvdaApprovedPlotting,
   plotsInVrindavan,
   propertyInVrindavan,
+  sobhaVrindavan,
 } from "./propertyinvrindavan";
 export type { SiteConfig } from "./propertyinvrindavan";

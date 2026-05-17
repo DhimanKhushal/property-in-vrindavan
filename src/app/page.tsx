@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { headers } from "next/headers";
 import { Icon } from "@iconify/react";
@@ -137,6 +138,27 @@ function SectionWordmark({
   );
 }
 
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Promise<{ site?: string }>;
+}): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const resolvedSearchParams = await searchParams;
+  const previewSite = getSiteConfigByPreviewKey(resolvedSearchParams?.site);
+  const site = previewSite ?? getSiteConfigByDomain(requestHeaders.get("host"));
+
+  return {
+    title: site.browserTitle,
+    description: `${site.brandName} real estate landing page`,
+    icons: {
+      icon: "/favicon.ico?v=2",
+      shortcut: "/favicon.ico?v=2",
+      apple: "/favicon.ico?v=2",
+    },
+  };
+}
+
 export default async function Home({
   searchParams,
 }: {
@@ -176,6 +198,8 @@ export default async function Home({
             brandName={site.brandName}
             brandTopLine={site.brandTopLine}
             brandBottomLine={site.brandBottomLine}
+            ctaHref="#contact"
+            ctaLabel="Contact Us"
             navLinks={navLinks}
             propertyLinks={propertyTypeLinks}
           />
@@ -256,11 +280,21 @@ export default async function Home({
             <div className="bg-[radial-gradient(circle_at_24px_24px,rgba(202,164,79,0.08)_2px,transparent_0)] [background-size:42px_42px] px-6 py-10 sm:px-8 lg:px-10 lg:py-12">
               <div className="grid gap-8 sm:grid-cols-3">
                 {values.map((value) => (
-                  <div key={value.title} className="text-center">
+                  <div
+                    key={value.title}
+                    className="rounded-[1.6rem] border border-[#ead8b6] bg-[linear-gradient(180deg,rgba(255,252,246,0.96)_0%,rgba(248,239,223,0.96)_100%)] px-6 py-7 text-center shadow-[0_18px_36px_rgba(88,60,22,0.08)]"
+                  >
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[linear-gradient(180deg,#d6b15a_0%,#c79f45_100%)] text-[#fff8ea] shadow-[0_10px_22px_rgba(169,122,31,0.18)]">
                       <Icon icon={value.icon} width="28" height="28" />
                     </div>
                     <h3 className="mt-4 font-display text-[1.55rem] text-[#3b2c22]">{value.title}</h3>
+                    <p className="mt-2 text-[0.98rem] leading-7 text-[#6b5642]">
+                      {value.title === "Transparency"
+                        ? "Clear guidance, honest pricing, and straightforward communication at every step."
+                        : value.title === "Integrity"
+                          ? "Trusted recommendations built on experience, accountability, and long-term relationships."
+                          : "A people-first approach that values families, investors, and the Vrindavan community alike."}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -409,9 +443,9 @@ export default async function Home({
       <FloatingContactButton
         heroId="home"
         hideAtId="contact"
-        contactHref="#contact"
-        whatsappHref="https://wa.me/919592535453"
-        contactLabel="Contact Us"
+        callHref={phoneHref}
+        whatsappHref={`https://wa.me/91${site.contactPhone.replace(/\D/g, "")}`}
+        callLabel="Call Now"
       />
     </main>
   );

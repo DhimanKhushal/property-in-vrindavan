@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Cinzel, Oswald, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 
@@ -16,11 +15,6 @@ const bodyFont = Source_Sans_3({
   variable: "--font-source",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "Property In Vrindavan",
-  description: "Vrindavan Divine Abodes real estate landing page",
-};
 
 export default function RootLayout({
   children,

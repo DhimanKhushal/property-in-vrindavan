@@ -11,6 +11,7 @@ export type SiteConfig = {
   brandName: string;
   brandTopLine: string;
   brandBottomLine: string;
+  browserTitle: string;
   leadFormEndpoint: string;
   headlineTop: string;
   headlineBottom: string;
@@ -95,7 +96,7 @@ const baseSiteConfig = {
   categories: sharedCategories,
 } satisfies Omit<
   SiteConfig,
-  "domain" | "brandName" | "brandTopLine" | "brandBottomLine"
+  "domain" | "brandName" | "brandTopLine" | "brandBottomLine" | "browserTitle"
 >;
 
 function createSiteConfig(
@@ -103,6 +104,7 @@ function createSiteConfig(
   brandName: string,
   brandTopLine: string,
   brandBottomLine: string,
+  browserTitle: string,
 ) {
   return {
     ...baseSiteConfig,
@@ -110,6 +112,7 @@ function createSiteConfig(
     brandName,
     brandTopLine,
     brandBottomLine,
+    browserTitle,
   } satisfies SiteConfig;
 }
 
@@ -118,6 +121,7 @@ export const propertyInVrindavan = createSiteConfig(
   "Property In Vrindavan",
   "Property In",
   "Vrindavan",
+  "Property in Vrindavan",
 );
 
 export const flatsInVrindavan = createSiteConfig(
@@ -125,6 +129,7 @@ export const flatsInVrindavan = createSiteConfig(
   "Flats In Vrindavan",
   "Flats In",
   "Vrindavan",
+  "Flats in Vrindavan",
 );
 
 export const heroHomesVrindavan = createSiteConfig(
@@ -132,13 +137,15 @@ export const heroHomesVrindavan = createSiteConfig(
   "Hero Homes Vrindavan",
   "Hero Homes",
   "Vrindavan",
+  "Hero Homes Vrindavan",
 );
 
-export const laadiGroupVrindavan = createSiteConfig(
-  "laadigroupvrindavan.com",
-  "Laadi Group Vrindavan",
-  "Laadi Group",
+export const laadliGroupVrindavan = createSiteConfig(
+  "laadligroupvrindavan.com",
+  "Laadli Group Vrindavan",
+  "Laadli Group",
   "Vrindavan",
+  "Laadli Group Vrindavan",
 );
 
 export const lodhaVrindavan = createSiteConfig(
@@ -146,6 +153,7 @@ export const lodhaVrindavan = createSiteConfig(
   "Lodha Vrindavan",
   "Lodha",
   "Vrindavan",
+  "Lodha Vrindavan",
 );
 
 export const plotsInVrindavan = createSiteConfig(
@@ -153,15 +161,34 @@ export const plotsInVrindavan = createSiteConfig(
   "Plots In Vrindavan",
   "Plots In",
   "Vrindavan",
+  "Plots in Vrindavan",
+);
+
+export const mvdaApprovedPlotting = createSiteConfig(
+  "mvdaapprovedplotting.com",
+  "MVDA Approved Plotting",
+  "MVDA Approved",
+  "Plotting",
+  "MVDA Approved Plotting",
+);
+
+export const sobhaVrindavan = createSiteConfig(
+  "sobhavrindavan.com",
+  "Sobha Vrindavan",
+  "Sobha",
+  "Vrindavan",
+  "Sobha Vrindavan",
 );
 
 export const allSites = [
   propertyInVrindavan,
   flatsInVrindavan,
   heroHomesVrindavan,
-  laadiGroupVrindavan,
+  laadliGroupVrindavan,
   lodhaVrindavan,
   plotsInVrindavan,
+  mvdaApprovedPlotting,
+  sobhaVrindavan,
 ] as const;
 
 export function getSiteConfigByDomain(host: string | null | undefined) {

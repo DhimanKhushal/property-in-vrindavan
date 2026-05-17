@@ -6,17 +6,17 @@ import { PhoneCall } from "lucide-react";
 type FloatingContactButtonProps = {
   heroId: string;
   hideAtId: string;
-  contactHref: string;
+  callHref: string;
   whatsappHref: string;
-  contactLabel: string;
+  callLabel: string;
 };
 
 export function FloatingContactButton({
   heroId,
   hideAtId,
-  contactHref,
+  callHref,
   whatsappHref,
-  contactLabel,
+  callLabel,
 }: FloatingContactButtonProps) {
   const [showButton, setShowButton] = useState(false);
 
@@ -79,13 +79,13 @@ export function FloatingContactButton({
       </a>
 
       <a
-        href={contactHref}
+        href={callHref}
         className={`fixed bottom-5 right-4 z-50 inline-flex items-center gap-3 rounded-full border border-[#8f6116] bg-[linear-gradient(180deg,#d5ab48_0%,#b9851d_46%,#8f6215_100%)] px-5 py-3 font-display text-[0.98rem] uppercase tracking-[0.06em] text-[#fff5d8] shadow-[inset_0_1px_0_rgba(255,244,214,0.7),0_14px_28px_rgba(50,28,7,0.28)] transition duration-300 hover:-translate-y-1 hover:brightness-[1.03] sm:bottom-6 sm:right-6 ${visibilityClass}`}
       >
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/18">
           <PhoneCall className="h-5.5 w-5.5" strokeWidth={2.2} />
         </span>
-        {contactLabel}
+        {callLabel}
       </a>
     </>
   );
