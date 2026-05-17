@@ -17,8 +17,9 @@ Expected columns in `Sheet1`:
 4. `Contact Number`
 5. `Property Type`
 6. `Where From`
-7. `Page URL`
-8. `User Agent`
+7. `Budget`
+8. `Page URL`
+9. `User Agent`
 
 ## 2. Apps Script code
 
@@ -27,6 +28,7 @@ Create a new Apps Script project and replace `Code.gs` with this:
 ```js
 const SHEET_ID = "YOUR_SHEET_ID";
 const SHEET_NAME = "Sheet1";
+const NOTIFICATION_EMAIL = "inquiry.vrindavan@gmail.com";
 
 function doPost(e) {
   const payload = e && e.parameter ? e.parameter : {};
@@ -39,9 +41,25 @@ function doPost(e) {
     payload.contactNumber || "",
     payload.propertyType || "",
     payload.whereFrom || "",
+    payload.budget || "",
     payload.pageUrl || "",
     payload.userAgent || "",
   ]);
+
+  MailApp.sendEmail({
+    to: NOTIFICATION_EMAIL,
+    subject: "New Property In Vrindavan Enquiry",
+    htmlBody: `
+      <h2>New Enquiry</h2>
+      <p><strong>Site:</strong> ${payload.site || ""}</p>
+      <p><strong>Name:</strong> ${payload.name || ""}</p>
+      <p><strong>Contact Number:</strong> ${payload.contactNumber || ""}</p>
+      <p><strong>Property Type:</strong> ${payload.propertyType || ""}</p>
+      <p><strong>Where From:</strong> ${payload.whereFrom || ""}</p>
+      <p><strong>Budget:</strong> ${payload.budget || ""}</p>
+      <p><strong>Page URL:</strong> ${payload.pageUrl || ""}</p>
+    `,
+  });
 
   return ContentService
     .createTextOutput(JSON.stringify({ ok: true }))

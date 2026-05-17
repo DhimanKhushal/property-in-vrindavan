@@ -16,6 +16,16 @@
       "service": "property-in-vrindavan"
     }
   ],
+  "routes": [
+    {
+      "pattern": "propertyinvrindavan.co.in",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.propertyinvrindavan.co.in",
+      "custom_domain": true
+    }
+  ],
   "images": {
     "binding": "IMAGES"
   },
