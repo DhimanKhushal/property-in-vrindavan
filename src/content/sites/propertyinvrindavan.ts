@@ -9,6 +9,8 @@ export type SiteCategory = {
 export type SiteConfig = {
   domain: string;
   brandName: string;
+  brandTopLine: string;
+  brandBottomLine: string;
   leadFormEndpoint: string;
   headlineTop: string;
   headlineBottom: string;
@@ -26,11 +28,49 @@ export type SiteConfig = {
   categories: SiteCategory[];
 };
 
-export const propertyInVrindavan: SiteConfig = {
-  domain: "propertyinvrindavan.co.in",
-  brandName: "Property In Vrindavan",
-  leadFormEndpoint:
-    "https://script.google.com/macros/s/AKfycbyag9oXAYYAbUmwP7dOJbF9I-1zNIKwWxeD-w0s_PSPduY6Op6CVzMXfAAdm-fBTtog/exec",
+const sharedLeadFormEndpoint =
+  "https://script.google.com/macros/s/AKfycbyag9oXAYYAbUmwP7dOJbF9I-1zNIKwWxeD-w0s_PSPduY6Op6CVzMXfAAdm-fBTtog/exec";
+
+const sharedCategories: SiteCategory[] = [
+  {
+    id: "plots",
+    title: "1. Residential Plots",
+    cta: "Explore Plots",
+    accent: "#5e9ab8",
+    icon: "plots",
+  },
+  {
+    id: "apartments",
+    title: "2. Flats & Apartments",
+    cta: "View Apartments",
+    accent: "#609978",
+    icon: "apartments",
+  },
+  {
+    id: "villas",
+    title: "3. Villas & Independent Houses",
+    cta: "Find a Villa",
+    accent: "#4e8d87",
+    icon: "villa",
+  },
+  {
+    id: "farmhouses",
+    title: "4. Farmhouses & Resorts",
+    cta: "Explore Resorts",
+    accent: "#d2ad57",
+    icon: "farmhouse",
+  },
+  {
+    id: "commercial",
+    title: "5. Commercials",
+    cta: "Explore Commercials",
+    accent: "#7b4638",
+    icon: "commercial",
+  },
+];
+
+const baseSiteConfig = {
+  leadFormEndpoint: sharedLeadFormEndpoint,
   headlineTop: "Find Your Divine Home",
   headlineBottom: "In Vrindavan",
   subheadline:
@@ -52,41 +92,96 @@ export const propertyInVrindavan: SiteConfig = {
   contactPhone: "959-253-5453",
   contactEmail: "inquiry.vrindavan@gmail.com",
   footerText: "© 2024 Property In Vrindavan",
-  categories: [
-    {
-      id: "plots",
-      title: "1. Residential Plots",
-      cta: "Explore Plots",
-      accent: "#5e9ab8",
-      icon: "plots",
-    },
-    {
-      id: "apartments",
-      title: "2. Flats & Apartments",
-      cta: "View Apartments",
-      accent: "#609978",
-      icon: "apartments",
-    },
-    {
-      id: "villas",
-      title: "3. Villas & Independent Houses",
-      cta: "Find a Villa",
-      accent: "#4e8d87",
-      icon: "villa",
-    },
-    {
-      id: "farmhouses",
-      title: "4. Farmhouses & Resorts",
-      cta: "Explore Resorts",
-      accent: "#d2ad57",
-      icon: "farmhouse",
-    },
-    {
-      id: "commercial",
-      title: "5. Commercials",
-      cta: "Explore Commercials",
-      accent: "#7b4638",
-      icon: "commercial",
-    },
-  ],
-};
+  categories: sharedCategories,
+} satisfies Omit<
+  SiteConfig,
+  "domain" | "brandName" | "brandTopLine" | "brandBottomLine"
+>;
+
+function createSiteConfig(
+  domain: string,
+  brandName: string,
+  brandTopLine: string,
+  brandBottomLine: string,
+) {
+  return {
+    ...baseSiteConfig,
+    domain,
+    brandName,
+    brandTopLine,
+    brandBottomLine,
+  } satisfies SiteConfig;
+}
+
+export const propertyInVrindavan = createSiteConfig(
+  "propertyinvrindavan.co.in",
+  "Property In Vrindavan",
+  "Property In",
+  "Vrindavan",
+);
+
+export const flatsInVrindavan = createSiteConfig(
+  "flatsinvrindavan.com",
+  "Flats In Vrindavan",
+  "Flats In",
+  "Vrindavan",
+);
+
+export const heroHomesVrindavan = createSiteConfig(
+  "herohomesvrindavan.in",
+  "Hero Homes Vrindavan",
+  "Hero Homes",
+  "Vrindavan",
+);
+
+export const laadiGroupVrindavan = createSiteConfig(
+  "laadigroupvrindavan.com",
+  "Laadi Group Vrindavan",
+  "Laadi Group",
+  "Vrindavan",
+);
+
+export const lodhaVrindavan = createSiteConfig(
+  "lodhavrindavan.com",
+  "Lodha Vrindavan",
+  "Lodha",
+  "Vrindavan",
+);
+
+export const plotsInVrindavan = createSiteConfig(
+  "plotsinvrindavan.co.in",
+  "Plots In Vrindavan",
+  "Plots In",
+  "Vrindavan",
+);
+
+export const allSites = [
+  propertyInVrindavan,
+  flatsInVrindavan,
+  heroHomesVrindavan,
+  laadiGroupVrindavan,
+  lodhaVrindavan,
+  plotsInVrindavan,
+] as const;
+
+export function getSiteConfigByDomain(host: string | null | undefined) {
+  const normalizedHost = host?.split(":")[0].toLowerCase().replace(/^www\./, "");
+
+  return allSites.find((site) => site.domain === normalizedHost) ?? propertyInVrindavan;
+}
+
+export function getSiteConfigByPreviewKey(previewKey: string | null | undefined) {
+  const normalizedPreviewKey = previewKey?.trim().toLowerCase();
+
+  if (!normalizedPreviewKey) {
+    return null;
+  }
+
+  return (
+    allSites.find(
+      (site) =>
+        site.domain === normalizedPreviewKey ||
+        site.brandName.toLowerCase() === normalizedPreviewKey,
+    ) ?? null
+  );
+}

@@ -1,12 +1,11 @@
 import Image from "next/image";
+import { headers } from "next/headers";
 import { Icon } from "@iconify/react";
-import { propertyInVrindavan } from "@/content/sites";
+import { getSiteConfigByDomain, getSiteConfigByPreviewKey } from "@/content/sites";
 import { LeadForm } from "@/components/lead-form";
 import { HeroCardsCarousel } from "@/components/hero-cards-carousel";
 import { SiteNavbar } from "@/components/site-navbar";
 import { FloatingContactButton } from "@/components/floating-contact-button";
-
-const site = propertyInVrindavan;
 
 const values = [
   { title: "Transparency", icon: "mdi:shield-check-outline" },
@@ -138,7 +137,15 @@ function SectionWordmark({
   );
 }
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: Promise<{ site?: string }>;
+}) {
+  const requestHeaders = await headers();
+  const resolvedSearchParams = await searchParams;
+  const previewSite = getSiteConfigByPreviewKey(resolvedSearchParams?.site);
+  const site = previewSite ?? getSiteConfigByDomain(requestHeaders.get("host"));
   const phoneHref = `tel:+91${site.contactPhone.replace(/\D/g, "")}`;
   const phoneDisplay = `+91 ${site.contactPhone}`;
   const propertyTypeLinks = site.categories.map((category) => ({
@@ -165,7 +172,13 @@ export default function Home() {
     <main className="min-h-screen bg-[#f7f1e8]">
       <section className="bg-[#f6efe4]">
         <div className="fixed inset-x-0 top-0 z-50 px-4 pt-5 sm:px-6 lg:px-8">
-          <SiteNavbar brandName={site.brandName} navLinks={navLinks} propertyLinks={propertyTypeLinks} />
+          <SiteNavbar
+            brandName={site.brandName}
+            brandTopLine={site.brandTopLine}
+            brandBottomLine={site.brandBottomLine}
+            navLinks={navLinks}
+            propertyLinks={propertyTypeLinks}
+          />
         </div>
 
         <div id="home" className="pt-34 sm:pt-36">

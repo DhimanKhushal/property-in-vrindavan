@@ -10,11 +10,19 @@ type NavLink = {
 
 type SiteNavbarProps = {
   brandName: string;
+  brandTopLine: string;
+  brandBottomLine: string;
   navLinks: NavLink[];
   propertyLinks: NavLink[];
 };
 
-export function SiteNavbar({ brandName, navLinks, propertyLinks }: SiteNavbarProps) {
+export function SiteNavbar({
+  brandName,
+  brandTopLine,
+  brandBottomLine,
+  navLinks,
+  propertyLinks,
+}: SiteNavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPropertyMenuOpen, setIsPropertyMenuOpen] = useState(false);
   const propertyMenuRef = useRef<HTMLDivElement>(null);
@@ -64,10 +72,10 @@ export function SiteNavbar({ brandName, navLinks, propertyLinks }: SiteNavbarPro
         />
         <div className="leading-none">
           <p className="font-heading text-[1rem] tracking-[0.08em] text-[#b28a35] sm:text-[1.2rem]">
-            Property In
+            {brandTopLine}
           </p>
           <p className="font-heading text-[0.95rem] tracking-[0.08em] text-[#8f6f2b] sm:text-[1.15rem]">
-            Vrindavan
+            {brandBottomLine}
           </p>
         </div>
       </div>
