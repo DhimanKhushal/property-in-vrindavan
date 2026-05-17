@@ -29,7 +29,8 @@ export type SiteConfig = {
 export const propertyInVrindavan: SiteConfig = {
   domain: "propertyinvrindavan.co.in",
   brandName: "Property In Vrindavan",
-  leadFormEndpoint: "",
+  leadFormEndpoint:
+    "https://script.google.com/macros/s/AKfycbwA5NvsZL6qiK_Dbm1WV2zi1p1XBfSves2AidkE5P3fzIYOECRqvx7qgaWbZAXjpqJNpQ/exec",
   headlineTop: "Find Your Divine Home",
   headlineBottom: "In Vrindavan",
   subheadline:
