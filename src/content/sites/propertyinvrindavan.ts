@@ -49,7 +49,7 @@ export const propertyInVrindavan: SiteConfig = {
   ctaBody:
     "Talk to our team for site visits, pricing details, availability updates, and the right property recommendations in Vrindavan.",
   contactPhone: "959-253-5453",
-  contactEmail: "propertyinvrindavan11@gmail.com",
+  contactEmail: "inquiry.vrindavan@gmail.com",
   footerText: "© 2024 Property In Vrindavan",
   categories: [
     {

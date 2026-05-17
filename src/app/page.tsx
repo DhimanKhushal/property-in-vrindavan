@@ -114,9 +114,17 @@ function splitCardTitle(title: string) {
   return { index: "", label: title };
 }
 
-function SectionWordmark({ top, bottom }: { top: string; bottom?: string }) {
+function SectionWordmark({
+  top,
+  bottom,
+  className = "",
+}: {
+  top: string;
+  bottom?: string;
+  className?: string;
+}) {
   return (
-    <div className="font-heading uppercase leading-[0.82] tracking-[0.03em] text-[#caa44f]">
+    <div className={`font-heading uppercase leading-[0.82] tracking-[0.03em] text-[#caa44f] ${className}`}>
       {bottom ? (
         <>
           <div className="text-[2.7rem] sm:hidden">{`${top} ${bottom}`}</div>
@@ -131,6 +139,8 @@ function SectionWordmark({ top, bottom }: { top: string; bottom?: string }) {
 }
 
 export default function Home() {
+  const phoneHref = `tel:+91${site.contactPhone.replace(/\D/g, "")}`;
+  const phoneDisplay = `+91 ${site.contactPhone}`;
   const propertyTypeLinks = site.categories.map((category) => ({
     href: `#${getPropertySectionId(category.id)}`,
     label:
@@ -159,7 +169,7 @@ export default function Home() {
         </div>
 
         <div id="home" className="pt-34 sm:pt-36">
-          <div className="relative min-h-[47rem] w-full overflow-hidden rounded-t-[0.8rem] md:min-h-[54rem] lg:min-h-[51rem] xl:min-h-[56rem]">
+          <div className="relative min-h-[100svh] w-full overflow-hidden rounded-t-[0.8rem]">
             <Image
               src="/sites/propertyinvrindavan/hero-clean.png"
               alt="Vrindavan riverside temple background"
@@ -170,21 +180,23 @@ export default function Home() {
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(245,229,193,0.34)_0%,rgba(54,31,16,0.18)_26%,rgba(19,13,10,0.48)_60%,rgba(18,13,10,0.72)_100%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(255,228,156,0.5),transparent_17%),radial-gradient(circle_at_72%_16%,rgba(255,255,255,0.12),transparent_24%)]" />
 
-            <div className="relative z-10 flex h-full items-start justify-center px-4 pb-16 pt-12 sm:px-6 md:items-center lg:px-8">
-              <div className="w-full max-w-[1280px]">
-                <div className="mx-auto w-full max-w-[980px] rounded-[2rem] border border-white/24 bg-[linear-gradient(180deg,rgba(23,16,11,0.18)_0%,rgba(23,16,11,0.34)_100%)] px-5 py-8 text-center shadow-[0_26px_60px_rgba(20,10,5,0.28)] backdrop-blur-[4px] sm:px-9 sm:py-10">
+            <div className="relative z-10 flex min-h-[100svh] justify-center px-4 pb-10 pt-12 sm:px-6 sm:pb-12 lg:px-8">
+              <div className="flex w-full max-w-[1280px] flex-col justify-between">
+                <div className="mx-auto w-full max-w-[980px] px-5 py-8 text-center sm:px-9 sm:py-10">
                   <h1 className="font-heading text-[2.7rem] uppercase leading-[0.9] tracking-[0.07em] text-[#e2bd68] [text-shadow:0_3px_0_rgba(70,39,10,0.35),0_10px_24px_rgba(0,0,0,0.28)] sm:text-[4.2rem] lg:text-[5.1rem]">
-                    Find Your Divine Home
+                    {site.headlineTop}
                   </h1>
                   <h2 className="mt-2 font-display text-[2rem] uppercase leading-none tracking-[0.06em] text-white [text-shadow:0_6px_18px_rgba(0,0,0,0.34)] sm:text-[3.2rem] lg:text-[4rem]">
-                    In Vrindavan
+                    {site.headlineBottom}
                   </h2>
                   <p className="mx-auto mt-5 max-w-[760px] text-[1.05rem] leading-8 text-white/92 sm:text-[1.24rem]">
-                    &quot;plots, flats, and commercial properties in the heart of Krishna Janambhoomi&quot;
+                    {site.subheadline}
                   </p>
                 </div>
 
-                <HeroCardsCarousel items={heroCardItems} />
+                <div className="mt-16 sm:mt-20">
+                  <HeroCardsCarousel items={heroCardItems} />
+                </div>
               </div>
             </div>
           </div>
@@ -196,9 +208,13 @@ export default function Home() {
         className="bg-[linear-gradient(180deg,#faf5ec_0%,#f8f1e7_100%)] [background-image:radial-gradient(circle_at_20px_20px,rgba(201,165,79,0.08)_1px,transparent_0)] [background-size:34px_34px] px-4 pb-18 pt-24 sm:px-6 md:pt-18 lg:px-8"
       >
         <div className="mx-auto max-w-[1440px]">
-          <div className="grid gap-10 rounded-[2.2rem] border border-[#eadcc7] bg-[linear-gradient(180deg,rgba(255,251,245,0.92)_0%,rgba(250,243,232,0.92)_100%)] px-6 py-8 shadow-[0_20px_44px_rgba(88,60,22,0.07)] lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-10 lg:py-10">
+          <div className="grid gap-10 rounded-[2.2rem] border border-[#eadcc7] bg-[linear-gradient(180deg,rgba(255,251,245,0.92)_0%,rgba(250,243,232,0.92)_100%)] px-6 py-8 shadow-[0_20px_44px_rgba(88,60,22,0.07)] lg:grid-cols-[1.02fr_0.98fr] lg:items-start lg:px-10 lg:py-10">
             <div className="flex justify-center lg:justify-start">
-              <SectionWordmark top="About" bottom="Us" />
+              <SectionWordmark
+                top="About"
+                bottom="Us"
+                className="sm:[&>div]:text-[4.85rem] lg:leading-[0.88] lg:[&>div]:text-[10.625rem]"
+              />
             </div>
 
             <div className="space-y-7 pt-3 text-center lg:text-left">
@@ -223,32 +239,22 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-14 grid gap-8 sm:grid-cols-3">
-            {values.map((value) => (
-              <div
-                key={value.title}
-                className="rounded-[1.8rem] border border-[#e3d3bc] bg-[rgba(255,252,246,0.92)] px-6 py-8 text-center shadow-[0_14px_30px_rgba(80,54,20,0.05)]"
-              >
-                <div className="mx-auto flex h-22 w-22 items-center justify-center rounded-full bg-[linear-gradient(180deg,#d6b15a_0%,#c79f45_100%)] text-[#fff8ea] shadow-[0_12px_24px_rgba(169,122,31,0.22)]">
-                  <Icon icon={value.icon} width="42" height="42" />
-                </div>
-                <h3 className="mt-5 font-display text-[1.85rem] text-[#3b2c22]">{value.title}</h3>
-                <p className="mt-3 text-[1rem] leading-7 text-[#6c5642]">
-                  {value.title === "Transparency" && "Clear dealings, no hidden facts."}
-                  {value.title === "Integrity" && "Honest service, ten years strong."}
-                  {value.title === "Community" && "Building lasting, spiritual connections."}
-                </p>
+          <div className="mt-16 overflow-hidden rounded-[2.3rem] border border-[#e2d4c0] bg-[linear-gradient(180deg,#f7f0e4_0%,#fbf6ee_100%)] shadow-[0_18px_38px_rgba(88,60,22,0.06)]">
+            <div className="bg-[radial-gradient(circle_at_24px_24px,rgba(202,164,79,0.08)_2px,transparent_0)] [background-size:42px_42px] px-6 py-10 sm:px-8 lg:px-10 lg:py-12">
+              <div className="grid gap-8 sm:grid-cols-3">
+                {values.map((value) => (
+                  <div key={value.title} className="text-center">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[linear-gradient(180deg,#d6b15a_0%,#c79f45_100%)] text-[#fff8ea] shadow-[0_10px_22px_rgba(169,122,31,0.18)]">
+                      <Icon icon={value.icon} width="28" height="28" />
+                    </div>
+                    <h3 className="mt-4 font-display text-[1.55rem] text-[#3b2c22]">{value.title}</h3>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          <div className="mt-16 rounded-[2.3rem] border border-[#e2d4c0] bg-[linear-gradient(180deg,#f5ecde_0%,#fbf6ee_100%)] px-6 py-10 shadow-[0_18px_38px_rgba(88,60,22,0.06)] lg:px-10 lg:py-12">
-            <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-              <div className="flex justify-center lg:block lg:border-r lg:border-[#e3d3bb] lg:pr-8">
-                <SectionWordmark top="Our" bottom="Vision" />
-              </div>
-              <div className="rounded-[1.6rem] bg-white/60 px-5 py-5 text-center shadow-[inset_0_0_0_1px_rgba(226,212,192,0.7)] sm:px-7 sm:py-7 lg:text-left">
-                <p className="text-justify text-[1.08rem] leading-8 text-[#4e3c30] sm:text-[1.18rem] lg:text-left">
+              <div className="mt-10 text-center">
+                <SectionWordmark top="Our" bottom="Vision" className="inline-block" />
+                <p className="mx-auto mt-5 max-w-[980px] text-justify text-[1.04rem] leading-8 text-[#4e3c30] sm:text-center sm:text-[1.12rem] sm:leading-8">
                   To be the most trusted and preferred real estate partners. Drawing on our 10-year legacy of
                   excellence and deep-rooted local expertise, we envision a future where every seeker finds
                   their &quot;Divine Abode&quot; through our transparent, professional, and heritage-connected services.
@@ -276,27 +282,27 @@ export default function Home() {
           <div className="mt-10 space-y-8">
             {propertySections.map((section, index) => {
               const isRight = index % 2 === 1;
-              const cardBg =
-                index % 2 === 1
-                  ? "bg-[linear-gradient(180deg,#fcf6eb_0%,#f4e5ca_100%)]"
-                  : "bg-[linear-gradient(180deg,#fffdf8_0%,#f8efe1_100%)]";
 
               return (
                 <article
                   key={section.title}
                   id={section.id}
-                  className={`rounded-[2rem] border border-[#e4d5be] ${cardBg} p-5 shadow-[0_16px_32px_rgba(73,49,20,0.09)] sm:p-7`}
+                  className="rounded-[1.15rem] bg-[#fff8ee] p-5 shadow-[0_4px_10px_rgba(0,0,0,0.12)] sm:p-6"
                 >
-                  <div className={`grid gap-7 lg:grid-cols-[0.85fr_1.15fr] ${isRight ? "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1" : ""}`}>
-                    <div className="relative min-h-[240px] overflow-hidden rounded-[1rem]">
+                  <div
+                    className={`flex flex-col gap-6 md:items-center md:gap-6 ${isRight ? "md:flex-row-reverse" : "md:flex-row"}`}
+                  >
+                    <div
+                      className="relative h-[225px] w-full shrink-0 overflow-hidden rounded-[0.75rem] bg-[#d9d9d9] sm:h-[275px] md:h-[320px] md:w-[520px] lg:h-[360px] lg:w-[560px] xl:h-[380px] xl:w-[600px]"
+                    >
                       <Image src={section.image} alt={section.imageAlt} fill className="object-cover" />
                     </div>
 
-                    <div className="flex flex-col justify-center text-center lg:text-left">
-                      <h3 className="font-display text-[2rem] leading-tight text-[#3d2b1f] sm:text-[2.4rem]">
+                    <div className="min-w-0 flex-1 text-center md:text-left">
+                      <h3 className="font-display text-[1.85rem] leading-tight text-[#4b2e1f] sm:text-[2rem] md:text-[2.1rem]">
                         {section.title}
                       </h3>
-                      <div className="mt-4 space-y-5 text-[1.06rem] leading-8 text-[#554234] sm:text-[1.12rem]">
+                      <div className="mt-3 space-y-3 text-[1.08rem] leading-[1.75] text-[#555555] sm:text-[1.12rem]">
                         {section.copy.map((paragraph) => (
                           <p key={paragraph} className="text-justify lg:text-left">{paragraph}</p>
                         ))}
@@ -345,8 +351,8 @@ export default function Home() {
                   <p className="font-display text-[0.88rem] uppercase tracking-[0.14em] text-[#efc56a]">
                     Call Us
                   </p>
-                  <a href={`tel:${site.contactPhone}`} className="mt-2 block text-[1.15rem] text-white">
-                    {site.contactPhone}
+                  <a href={phoneHref} className="mt-2 block text-[1.15rem] text-white">
+                    {phoneDisplay}
                   </a>
                 </div>
                 <div className="rounded-[1.2rem] border border-white/14 bg-white/8 px-5 py-4 text-left">
@@ -360,7 +366,7 @@ export default function Home() {
               </div>
 
               <a
-                href={`tel:${site.contactPhone}`}
+                href={phoneHref}
                 className="button-gold mt-8 inline-flex h-14 items-center justify-center rounded-[1rem] border border-[#8f6116] px-8 font-display text-[1rem] uppercase tracking-[0.08em] text-[#fff5d8]"
               >
                 Contact Now
@@ -376,10 +382,10 @@ export default function Home() {
             Call Us For Any Inquiry
           </p>
           <a
-            href={`tel:${site.contactPhone}`}
+            href={phoneHref}
             className="blink-callout mt-2 inline-block font-heading text-[4.7rem] leading-none tracking-[0.02em] text-[#5a4332] sm:text-[6.8rem] lg:text-[9rem]"
           >
-            {site.contactPhone}
+            {phoneDisplay}
           </a>
         </div>
       </section>
