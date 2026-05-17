@@ -274,7 +274,10 @@ export default function Home() {
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div className="flex justify-center lg:justify-start">
-              <SectionWordmark top="Properties" />
+              <div className="inline-flex flex-col items-center gap-3 lg:items-start">
+                <SectionWordmark top="Properties" />
+                <span className="h-[3px] w-28 rounded-full bg-[linear-gradient(90deg,#caa44f_0%,#e0c37d_100%)]" />
+              </div>
             </div>
             <div />
           </div>
