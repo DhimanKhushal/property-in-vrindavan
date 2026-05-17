@@ -24,46 +24,6 @@
     {
       "pattern": "www.propertyinvrindavan.co.in",
       "custom_domain": true
-    },
-    {
-      "pattern": "flatsinvrindavan.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.flatsinvrindavan.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "herohomesvrindavan.in",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.herohomesvrindavan.in",
-      "custom_domain": true
-    },
-    {
-      "pattern": "laadigroupvrindavan.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.laadigroupvrindavan.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "lodhavrindavan.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.lodhavrindavan.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "plotsinvrindavan.co.in",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.plotsinvrindavan.co.in",
-      "custom_domain": true
     }
   ],
   "images": {
